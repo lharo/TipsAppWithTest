@@ -57,7 +57,7 @@ struct ContentView: View {
                 .padding()
 
             HStack {
-                ForEach([0.0, 10.0, 15.0, 20.0], id: \.self) { percentage in
+                ForEach([0.0, 10.0, 15.0, 21.0], id: \.self) { percentage in
                     Button("\(Int(percentage))%") {
                         self.tipPercentage = percentage
                     }
