@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    runs-on: macOS-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Xcode
+      uses: actions/setup-xcode@v2
+      with:
+        xcode-version: '13.x'
+
+    - name: Install dependencies
+      run: |
+        xcodebuild -resolvePackageDependencies
+        gem install xcpretty
+
+    - name: Build and test
+      run: |
+        xcodebuild test -scheme TipsApp -destination 'platform=iOS Simulator,name=iPhone 13' | xcpretty -f `xcpretty-travis-formatter`
